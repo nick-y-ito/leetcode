@@ -1,9 +1,9 @@
-type Fn = (accum: number, curr: number) => number
+type Reducer<T, U> = (acc: T, curr: U) => T;
 
-function reduce(nums: number[], fn: Fn, init: number): number {
-    let val: number = init;
-    nums.forEach((n: number) => {
-        val = fn(val, n)
-    })
-    return val;
-};
+function reduce<T, U>(nums: U[], fn: Reducer<T, U>, init: T): T {
+  let val: T = init;
+  for (let i = 0; i < nums.length; i++) {
+    val = fn(val, nums[i]);
+  }
+  return val;
+}
