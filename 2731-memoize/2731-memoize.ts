@@ -1,15 +1,12 @@
 type Fn = (...params: number[]) => number;
 
 function memoize(fn: Fn): Fn {
-    const called = new Map();
-    const answer = new Map();
+    const cache = {};
     return function (...args) {
-        if (called.get(JSON.stringify(args))) {
-            return answer.get(JSON.stringify(args));
-        }
+        const key = JSON.stringify(args);
+        if (key in cache) return cache[key];
         const result = fn(...args);
-        called.set(JSON.stringify(args), true);
-        answer.set(JSON.stringify(args), result);
+        cache[key] = result;
         return result;
     };
 }
