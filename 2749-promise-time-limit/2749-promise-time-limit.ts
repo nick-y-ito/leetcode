@@ -4,13 +4,13 @@ const timeLimit = (fn: Fn, t: number): Fn => {
     return (...args) => {
         return new Promise(async (resolve, reject) => {
             setTimeout(() => reject('Time Limit Exceeded'), t)
-            // try {
-            //     const result = await fn(...args);
-            //     resolve(result);
-            // } catch (e) {
-            //     reject(e);
-            // }
-            return fn(...args).then(resolve).catch(reject)
+            try {
+                const result = await fn(...args);
+                resolve(result);
+            } catch (e) {
+                reject(e);
+            }
+            // return fn(...args).then(resolve).catch(reject)
         });
     }
 };
