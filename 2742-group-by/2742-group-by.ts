@@ -8,7 +8,7 @@ Array.prototype.groupBy = function<T>(fn: (item: T) => string) {
     const result: Record<string, T[]> = {};
     this.forEach((item: T) => {
         const key = fn(item);
-        result[key] = result[key] || []
+        result[key] ||= []
         result[key].push(item);
     });
     return result;
